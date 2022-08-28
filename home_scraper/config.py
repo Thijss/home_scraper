@@ -33,8 +33,10 @@ class StorageConfig(BaseModel):
 
     @property
     def storage_dir(self):
-        if self.mode == StorageMode.AWS:
+        if self.mode == StorageMode.AWS_LOCAL:
             return _RESULTS_DIR / "aws"
+        if self.mode == StorageMode.AWS_LAMBDA:
+            return Path("/tmp/")
         return _RESULTS_DIR / "local"
 
 
@@ -67,7 +69,7 @@ class Settings(BaseSettings):
     @root_validator
     def check_congruent_storage_mode(cls, values):
         storage = values.get("storage")
-        if storage and storage.mode == StorageMode.AWS and storage.aws is None:
+        if storage and storage.mode in [StorageMode.AWS_LAMBDA, StorageMode.AWS_LOCAL] and storage.aws is None:
             raise ValueError(
                 f"{storage.mode.repr()} requires configured {AwsConfig.__name__}"
             )

@@ -20,7 +20,7 @@ def _get_new_homes():
 def _get_existing_homes():
 
     local_homes_path = settings.storage.storage_dir / FILE_NAME
-    if settings.storage.mode == StorageMode.AWS:
+    if settings.storage.mode in [StorageMode.AWS_LOCAL, StorageMode.AWS_LAMBDA]:
         try:
             S3().download_file(s3_path=FILE_NAME, local_path=local_homes_path)
         except FileNotFoundError:
@@ -46,7 +46,7 @@ if __name__ == "__main__":
         homes=existing_homes.union(new_homes),
         overwrite=True,
     )
-    if settings.storage.mode == StorageMode.AWS:
+    if settings.storage.mode in [StorageMode.AWS_LOCAL, StorageMode.AWS_LAMBDA]:
         S3().upload_file(FILE_NAME, local_path=local_homes_file)
 
     new_available_homes = {home for home in new_or_updated_homes if home.is_available()}
