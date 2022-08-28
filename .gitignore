@@ -1,0 +1,18 @@
+# Python
+__pycache__
+
+# coverage reports
+htmlcov/
+.coverage
+
+# Pycharm
+.idea/
+
+# macOS
+.DS_Store
+
+# Project
+results
+
+# .env file
+.env

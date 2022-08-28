@@ -1,0 +1,15 @@
+[MASTER]
+extension-pkg-whitelist=pydantic
+
+[FORMAT]
+max-line-length=120
+
+[MESSAGES CONTROL]
+disable=missing-docstring,invalid-name
+
+[DESIGN]
+max-parents=13
+exclude-too-few-public-methods=BaseModel
+
+[TYPECHECK]
+generated-members=REQUEST,acl_users,aq_parent,"[a-zA-Z]+_set{1,2}",save,delete

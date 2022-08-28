@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "home_scraper"
+version = "0.1.0"
+description = "Project for scraping the web for available homes"
+authors = ["Thijs Baaijen <Thijss@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+beautifulsoup4 = "^4.11.1"
+requests = "^2.28.1"
+python-dotenv = "^0.20.0"
+pydantic = "^1.9.2"
+slack-sdk = "^3.18.1"
+boto3 = "^1.24.61"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+black = "^22.6.0"
+pylint = "^2.15.0"
+flake8 = "^5.0.4"
+flake8-isort = "^4.2.0"
+mypy = "^0.971"
+pytest-sugar = "^0.9.5"
+coverage = "^6.4.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,16 @@
+{"address": "Statenjachtstraat 40", "url": "/te-huur/vrije-sector-huur/34646975-amsterdam-noord-statenjachtstraat-40", "price": "\u20ac 1.024 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Bezembinderspad 18", "url": "/te-huur/vrije-sector-huur/34646977-amsterdam-noord-bezembinderspad-18", "price": "\u20ac 845 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Zeeburgerdijk 424", "url": "/te-huur/vrije-sector-huur/34646454-amsterdam-oost-zeeburgerdijk-424", "price": "\u20ac 845 /mnd", "status": 3, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Schagerlaan 75", "url": "/te-huur/vrije-sector-huur/34643803-amsterdam-oost-schagerlaan-75", "price": "\u20ac 845 /mnd", "status": 3, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Olympiaplein 58--3", "url": "/te-huur/vrije-sector-huur/34649557-amsterdam-zuid-olympiaplein-58-3", "price": "\u20ac 887 /mnd", "status": 1, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Vijgepeerpad 6", "url": "/te-huur/vrije-sector-huur/34647362-amsterdam-noord-vijgepeerpad-6", "price": "\u20ac 845 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Rustenburgerstraat 86-C", "url": "/te-huur/vrije-sector-huur/34643528-amsterdam-zuid-rustenburgerstraat-86-c", "price": "\u20ac 885 /mnd", "status": 3, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Spaarndammerplantsoen 97", "url": "/te-huur/vrije-sector-huur/34645445-amsterdam-centrum-spaarndammerplantsoen-97", "price": "\u20ac 845 /mnd", "status": 3, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Cilliersstraat 69", "url": "/te-huur/vrije-sector-huur/34642071-amsterdam-oost-cilliersstraat-69", "price": "\u20ac 845 /mnd", "status": 3, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Pieter van der Doesstraat 21-2", "url": "/te-huur/vrije-sector-huur/34643112-amsterdam-west-pieter-van-der-doesstraat-21-2", "price": "\u20ac 845 /mnd", "status": 3, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Solostraat 8", "url": "/te-huur/vrije-sector-huur/34647359-amsterdam-oost-solostraat-8", "price": "\u20ac 1.024 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Buitenzagerij 3", "url": "/te-huur/vrije-sector-huur/34647627-amsterdam-noord-buitenzagerij-3", "price": "\u20ac 1.024 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
+{"address": "IJplein 186-4", "url": "/te-huur/vrije-sector-huur/34647355-amsterdam-noord-ijplein-186-4", "price": "\u20ac 1.024 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Rozenstraat 205-B", "url": "/te-huur/vrije-sector-huur/34645432-amsterdam-centrum-rozenstraat-205-b", "price": "\u20ac 845 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Sumatrastraat 162-u", "url": "/te-huur/vrije-sector-huur/34643833-amsterdam-oost-sumatrastraat-162-u", "price": "\u20ac 845 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
+{"address": "Karel Doormanstraat 112-C", "url": "/te-huur/vrije-sector-huur/34648277-amsterdam-west-karel-doormanstraat-112-c", "price": "\u20ac 845 /mnd", "status": 2, "created": "2022-08-28T17:46:46.346584"}
