@@ -67,7 +67,7 @@ class Settings(BaseSettings):
     @root_validator
     def check_congruent_storage_mode(cls, values):
         storage = values.get("storage")
-        if storage.mode == StorageMode.AWS and storage.aws is None:
+        if storage and storage.mode == StorageMode.AWS and storage.aws is None:
             raise ValueError(
                 f"{storage.mode.repr()} requires configured {AwsConfig.__name__}"
             )

@@ -37,7 +37,6 @@ if __name__ == "__main__":
     existing_homes = _get_existing_homes()
 
     new_or_updated_homes = new_homes - existing_homes
-
     if not new_or_updated_homes:
         sys.exit(0)
 
@@ -50,8 +49,10 @@ if __name__ == "__main__":
     if settings.storage.mode == StorageMode.AWS:
         S3().upload_file(FILE_NAME, local_path=local_homes_file)
 
-    available_homes = {home for home in new_or_updated_homes if home.is_available()}
-    for home in available_homes:
+    new_available_homes = {home for home in new_or_updated_homes if home.is_available()}
+    for home in new_available_homes:
         message = f"Home available!\n" f"\t{home.address}\n" f"\t{home.full_url}"
         if settings.slack:
             send_message(message=message, channel=settings.slack.channel)
+        else:
+            print(message)

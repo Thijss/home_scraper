@@ -4,6 +4,7 @@ from home_scraper.scraping.model import Home
 
 
 def write_homes(homes_file: Path, homes: set[Home], overwrite: bool = False):
+    homes_file.parent.mkdir(parents=True, exist_ok=True)
 
     if homes_file.is_file() and not overwrite:
         raise FileExistsError
