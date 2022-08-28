@@ -1,7 +1,6 @@
 from enum import IntEnum
 
 
-class StorageMode(IntEnum):
+class StorageLocation(IntEnum):
     LOCAL = 1
-    AWS_LOCAL = 2
-    AWS_LAMBDA = 3
+    S3 = 2

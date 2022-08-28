@@ -1,12 +1,13 @@
 # pylint: disable=no-self-argument,too-few-public-methods
-from enum import IntEnum
 from pathlib import Path
 
 from pydantic import BaseModel, BaseSettings, root_validator, validator
 
-from home_scraper.storage.enums import StorageMode
+from home_scraper.config.enums import DataSource
+from home_scraper.config._helpers import convert_enum
+from home_scraper.storage.enums import StorageLocation
 
-_BASE_DIR = Path(__file__).parent.parent
+_BASE_DIR = Path(__file__).parent.parent.parent
 _RESULTS_DIR = _BASE_DIR / "results"
 
 
@@ -16,28 +17,17 @@ class AwsConfig(BaseModel):
     bucket_name: str = "home-scraper"
 
 
-class DataSource(IntEnum):
-    LOCAL = 1
-    WEB = 2
-
-
 class StorageConfig(BaseModel):
-    mode: StorageMode = StorageMode.LOCAL
+    mode: StorageLocation = StorageLocation.LOCAL
     aws: AwsConfig | None = None
 
     @validator("mode", pre=True)
     def validate_mode(cls, value):
-        if isinstance(value, str):
-            return StorageMode[value.upper()]
-        return value
+        return convert_enum(value, StorageLocation)
 
     @property
-    def storage_dir(self):
-        if self.mode == StorageMode.AWS_LOCAL:
-            return _RESULTS_DIR / "aws"
-        if self.mode == StorageMode.AWS_LAMBDA:
-            return Path("/tmp/")
-        return _RESULTS_DIR / "local"
+    def results_dir(self):
+        return _BASE_DIR / "results"
 
 
 class SlackConfig(BaseModel):
@@ -62,14 +52,12 @@ class Settings(BaseSettings):
 
     @validator("data_source", pre=True)
     def validate_data_source(cls, value):
-        if isinstance(value, str):
-            return DataSource[value.upper()]
-        return value
+        return convert_enum(value, DataSource)
 
     @root_validator
     def check_congruent_storage_mode(cls, values):
         storage = values.get("storage")
-        if storage and storage.mode in [StorageMode.AWS_LAMBDA, StorageMode.AWS_LOCAL] and storage.aws is None:
+        if storage and storage.mode == StorageLocation.S3 and storage.aws is None:
             raise ValueError(
                 f"{storage.mode.repr()} requires configured {AwsConfig.__name__}"
             )
