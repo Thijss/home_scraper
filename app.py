@@ -1,14 +1,41 @@
-import sys
-
 from home_scraper.config import DataSource, settings
 from home_scraper.notifications.slack import send_message
 from home_scraper.scraping.model import Home
 from home_scraper.scraping.tags import get_tags_on_website
 from home_scraper.storage.enums import StorageLocation
 from home_scraper.storage.files import read_homes, write_homes
-from home_scraper.storage.s3 import S3, download_homes_from_s3, upload_homes_to_s3
+from home_scraper.storage.s3 import S3, upload_homes_to_s3
+
 
 FILE_NAME = "existing_homes.txt"
+
+
+def handler(event, context):
+    new_homes = _get_new_homes()
+    existing_homes = _get_existing_homes()
+
+    new_or_updated_homes = new_homes - existing_homes
+    if not new_or_updated_homes:
+        return {"number_of_homes": 0}
+
+    new_available_homes = {home for home in new_or_updated_homes if home.is_available()}
+    for home in new_available_homes:
+        message = f"Home available!\n" f"\t{home.address}\n" f"\t{home.full_url}"
+        if settings.slack:
+            send_message(message=message, channel=settings.slack.channel)
+        else:
+            print(message)
+
+    if settings.storage.mode == StorageLocation.S3:
+        upload_homes_to_s3(s3_path=FILE_NAME, homes=existing_homes.union(new_homes))
+    else:
+        local_homes_file = settings.storage.results_dir / FILE_NAME
+        write_homes(
+            homes_file=local_homes_file,
+            homes=existing_homes.union(new_homes),
+            overwrite=True,
+        )
+    return {"number_of_homes": len(new_or_updated_homes)}
 
 
 def _get_new_homes():
@@ -31,30 +58,3 @@ def _get_existing_homes():
         return read_homes(settings.storage.results_dir / FILE_NAME)
     except FileNotFoundError:
         return set()
-
-
-if __name__ == "__main__":
-    new_homes = _get_new_homes()
-    existing_homes = _get_existing_homes()
-
-    new_or_updated_homes = new_homes - existing_homes
-    if not new_or_updated_homes:
-        sys.exit(0)
-
-    new_available_homes = {home for home in new_or_updated_homes if home.is_available()}
-    for home in new_available_homes:
-        message = f"Home available!\n" f"\t{home.address}\n" f"\t{home.full_url}"
-        if settings.slack:
-            send_message(message=message, channel=settings.slack.channel)
-        else:
-            print(message)
-
-    if settings.storage.mode == StorageLocation.S3:
-        upload_homes_to_s3(s3_path=FILE_NAME, homes=existing_homes.union(new_homes))
-    else:
-        local_homes_file = settings.storage.results_dir / FILE_NAME
-        write_homes(
-            homes_file=local_homes_file,
-            homes=existing_homes.union(new_homes),
-            overwrite=True,
-        )
