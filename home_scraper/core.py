@@ -1,7 +1,4 @@
-import logging
-
 from home_scraper.config import DataSource, settings
-from home_scraper.log import setup_logging
 from home_scraper.notifications.slack import send_message
 from home_scraper.scraping.model import Home
 from home_scraper.scraping.tags import get_tags_on_website
@@ -64,5 +61,4 @@ def _get_existing_homes():
 
 
 if __name__ == "__main__":
-    setup_logging()
     run()
