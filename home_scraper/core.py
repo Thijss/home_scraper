@@ -1,6 +1,7 @@
 import logging
 
 from home_scraper.config import DataSource, settings
+from home_scraper.log import setup_logging
 from home_scraper.notifications.slack import send_message
 from home_scraper.scraping.model import Home
 from home_scraper.scraping.tags import get_tags_on_website
@@ -13,21 +14,20 @@ FILE_NAME = "existing_homes.txt"
 
 
 def run() -> int:
-
     new_homes = _get_new_homes()
     existing_homes = _get_existing_homes()
 
     new_or_updated_homes = new_homes - existing_homes
     if not new_or_updated_homes:
+        print(f"No new homes found")
         return 0
 
     new_available_homes = {home for home in new_or_updated_homes if home.is_available()}
     for home in new_available_homes:
         message = f"Home available!\n" f"\t{home.address}\n" f"\t{home.full_url}"
+        print(message)
         if settings.slack:
             send_message(message=message, channel=settings.slack.channel)
-        else:
-            logging.info(message)
 
     if settings.storage.mode == StorageLocation.S3:
         upload_homes_to_s3(s3_path=FILE_NAME, homes=existing_homes.union(new_homes))
@@ -61,3 +61,8 @@ def _get_existing_homes():
         return read_homes(settings.storage.results_dir / FILE_NAME)
     except FileNotFoundError:
         return set()
+
+
+if __name__ == "__main__":
+    setup_logging()
+    run()

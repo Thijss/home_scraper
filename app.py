@@ -1,15 +1,10 @@
-import logging
-
 from home_scraper.core import run
 
-FILE_NAME = "existing_homes.txt"
 
-
-def handler(event, context):
-    logging.basicConfig(level=logging.INFO)
-
-    logging.info("Starting HomeScraper")
-    number_of_houses = run()
-    logging.info("Completed HomeScraper")
-
-    return {"new_houses": number_of_houses}
+def handler(event: dict, context: dict):
+    print("#### START ####")
+    print("EVENT:", event)
+    print("CONTEXT:", context)
+    nr_of_new_homes = run()
+    print("#### END ####")
+    return {"new_homes": nr_of_new_homes}
